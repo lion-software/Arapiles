@@ -1,7 +1,8 @@
 # Ignore files when interfacing with Docker container
 
 .git
-node_modules/
+STRAPI_APP_CONTENT/
+**/node_modules/
 
 # IDE files
 
@@ -28,6 +29,6 @@ pids
 
 # Build/plugin data
 
-build/Release
-public/
-.cache/
+**/build/Release
+**/public/
+**/.cache/

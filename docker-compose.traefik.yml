@@ -14,26 +14,46 @@ services:
      - backend
     depends_on:
      - db
+     - cms
     labels:
      - "traefik.enable=true"
-     - "traefik.http.routers.homesite-web.rule=Host(`uqmc.org`) || Host(`www.uqmc.org`)"
-     - "traefik.http.routers.homesite-web.entrypoints=web"
-     - "traefik.http.routers.homesite-web.middlewares=redirect@file"
-     - "traefik.http.routers.homesite-secured.rule=Host(`uqmc.org`) || Host(`www.uqmc.org`)"
-     - "traefik.http.routers.homesite-secured.entrypoints=web-secured"
-     - "traefik.http.routers.homesite-secured.tls.certresolver=mytlschallenge"
-     - "traefik.http.services.homesite.loadbalancer.server.port=3000"
+     - "traefik.http.routers.arapiles-web.rule=Host(`uqmc.org`) || Host(`www.uqmc.org`)"
+     - "traefik.http.routers.arapiles-web.entrypoints=web"
+     - "traefik.http.routers.arapiles-web.middlewares=redirect@file"
+     - "traefik.http.routers.arapiles-secured.rule=Host(`uqmc.org`) || Host(`www.uqmc.org`)"
+     - "traefik.http.routers.arapiles-secured.entrypoints=web-secured"
+     - "traefik.http.routers.arapiles-secured.tls.certresolver=mytlschallenge"
+     - "traefik.http.services.arapiles.loadbalancer.server.port=3000"
+
+  # Content management system
+  cms:
+    image: strapi/strapi
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - db
+    networks:
+     - backend
+     - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cms-web.rule=Host(`cms.uqmc.org`)"
+      - "traefik.http.routers.cms-web.entrypoints=web"
+      - "traefik.http.routers.cms-web.middlewares=redirect@file"
+      - "traefik.http.routers.cms-secured.rule=Host(`cms.uqmc.org`)"
+      - "traefik.http.routers.cms-secured.entrypoints=web-secured"
+      - "traefik.http.routers.cms-secured.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.cms.loadbalancer.server.port=1337"
 
   # Database
   db:
-    image: postgres
+    image: mongo
+    restart: unless-stopped
     env_file: .env
     networks:
-     - backend
+      - backend
     volumes:
-     - db-data:/var/lib/postgresql/data
-
-  # TODO: Add Docker Volume Backup
+      - db-data:/data/db
 
 volumes:
   # Database persistance

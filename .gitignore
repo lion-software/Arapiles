@@ -2,6 +2,9 @@
 
 .env
 
+# Strapi volume
+STRAPI_APP_CONTENT/
+
 # Libraries
 
 node_modules/

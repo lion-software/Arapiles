@@ -6,6 +6,34 @@
 module.exports = {
   plugins: [
 
+    /* Ant.Design UI library
+     */
+    'gatsby-plugin-antd',
+
+    /* Image processing
+    */
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+
+    /* Strapi API source for graphql
+    * 1) https://github.com/strapi/gatsby-source-strapi
+    * 1.1) https://github.com/strapi/gatsby-source-strapi/
+    */
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: process.env.GATSBY_BACKEND_CMS_URI,
+        queryLimit: 1000, // Default to 100
+        //contentTypes: [`exec`, `image`, `post`, `user`, `tape`, `faq`],
+        contentTypes: [`image`, `event`],
+        singleTypes: [],
+        loginData: {
+          identifier: "",
+          password: "",
+        },
+      },
+    },
+
     /* File system object for data sourcing
        from files with GraphQL.
        Markdown Content
@@ -50,7 +78,7 @@ module.exports = {
                 {
                   resolve: `gatsby-remark-images`,
                   options: {
-                    maxWidth: 1024, // TODO: SET THIS TO WIDTH OF PAGE CONTENT CONTAINER
+                    maxWidth: 1024,
                   },
                 }
             ],

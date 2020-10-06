@@ -1,0 +1,10 @@
+.centered {
+    text-align: center;
+}
+
+.jumbo-buttons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px; /* Bring closer to middle */
+    margin: 2em auto; /* Center horizontally */
+}

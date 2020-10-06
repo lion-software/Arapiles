@@ -1,0 +1,9 @@
+.cardCold {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.top-margin {
+    margin-top: 2em;
+}

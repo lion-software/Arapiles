@@ -4,7 +4,7 @@ FROM node:11 AS node_build_step
 LABEL "repository"="https://github.com/uqmc/arapiles"
 LABEL "homepage"="https://github.com/uqmc/arapiles"
 
-WORKDIR /node_build/front
+WORKDIR /node_build
 COPY src/front/package*.json ./
 
 # Building react app
@@ -12,10 +12,6 @@ RUN npm install
 
 COPY src/front/. .
 RUN npm run build
-
-WORKDIR /node_build
-COPY . .
-
 
 # Base image for running python backend
 FROM python:3.8
@@ -25,7 +21,9 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --from=node_build_step /node_build .
+COPY . .
+
+COPY --from=node_build_step /node_build/public /web/src/front/public
 
 # Application entrypoint
 CMD [ "python3", "./src/app.py" ]

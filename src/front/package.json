@@ -14,12 +14,18 @@
     "test": "echo \"TESTS\" && exit 1"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "antd": "^4.6.5",
     "gatsby": "^2.24.50",
-    "gatsby-plugin-sharp": "^2.6.33",
+    "gatsby-image": "^2.4.19",
+    "gatsby-plugin-antd": "^2.2.0",
+    "gatsby-plugin-sharp": "^2.6.36",
     "gatsby-remark-images": "^3.3.29",
     "gatsby-remark-relative-images": "^2.0.2",
     "gatsby-source-filesystem": "^2.3.28",
+    "gatsby-source-strapi": "0.0.12",
     "gatsby-transformer-remark": "^2.8.33",
+    "gatsby-transformer-sharp": "^2.5.15",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
